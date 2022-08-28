@@ -1,0 +1,5 @@
+<div class='basket-item'>
+    <span>{{ basketItem.productName }}</span> 
+    <span>{{basketItem.quantity}}</span>
+    <span>{{(basketItem.quantity * basketItem.price) | currency: 'GBP'}} </span>
+</div>

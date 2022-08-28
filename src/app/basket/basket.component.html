@@ -1,0 +1,24 @@
+<div class="col-md-4">
+    <!-- if basketIsEmpty in basket component class is true then display error -->
+    <div *ngIf="basketIsEmpty" class="alert alert-info">Your Basket is Empty</div>
+    <!-- if showNotEnoughProductsError is true then displayed not enough products error, with alert class styling -->
+    <div *ngIf="showNotEnoughProductsError" class="alert alert-info">There is no more of this item in stock</div>
+    <!-- if basketIsEmpty isn't true and the quantity is above 0 then display a list class for the items -->
+        <ul *ngIf="!basketIsEmpty && this.basketItems[0].quantity  > 0 "class="list-group">
+            <!-- for loop to display each item in the basketItems array -->
+            <li class="list-group-item" *ngFor="let item of basketItems">
+                <!-- call basket Item class with basketItem to pass the details of the item for each product -->
+                <pm-basket-item [basketItem]="item"></pm-basket-item>
+            </li>
+            <li class="list-group-item active">
+                <!-- show the total in GBP format -->
+                <strong>Total</strong> {{ basketTotal | currency: 'GBP'}}
+            </li>
+        </ul>
+        <!-- if there is more than one item, display the remove from basket button -->
+        <button *ngIf="this.basketItems[0].quantity > 0" type="button" class='btn btn-danger'
+        style='width:80px'
+        (click)='removeFromBasket()'>
+        Remove from basket
+    </button>
+</div>

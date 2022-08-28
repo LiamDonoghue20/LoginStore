@@ -1,0 +1,16 @@
+﻿<!-- nav -->
+<!-- nav bar displays for authenticated users -->
+<nav class="navbar navbar-expand navbar-dark bg-dark" *ngIf="currentUser">
+    <div class="navbar-nav">
+        <a class="nav-item nav-link" routerLink="/">Home</a>
+        <a class="nav-item nav-link" routerLink="/products">Products</a>
+        <a class="nav-item nav-link" (click)="logout()">Logout</a>
+    </div>
+</nav>
+
+<!-- main app container -->
+
+                <!-- alert and router outlet set in the base of the application -->
+                <alert></alert>
+                <router-outlet></router-outlet>
+

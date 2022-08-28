@@ -1,0 +1,81 @@
+<div clas='card'>
+    <!-- if a product exists display the productName -->
+    <div class='card-header'>
+        {{pageTitle + ': ' + product.productName}}
+    </div>
+
+ <!-- ngIf = if there's a product then populate and show the divs with the selected product's info -->
+    <div class='card-body'
+         *ngIf='product'>
+    <div class ='row'>
+        <div class='col-md-4'>
+            <div class='row'>
+                <div class='col-md-4'><a>Name:</a></div>
+                <div class='col-md-8'>{{product.productName}}</div>
+            </div>
+            <div class='row'>
+                <div class='col-md-4'>Code:</div>
+                <div class='col-md-8'>{{product.productCode}}</div>
+            </div>
+            <div class='row'>
+                <div class='col-md-4'>Description:</div>
+                <div class='col-md-8'>{{product.description}}</div>
+            </div>
+            <div class='row'>
+                <div class='col-md-4'>Availability:</div>
+                <div class='col-md-8'>{{product.releaseDate}}</div>
+              </div>
+              <div class='row'>
+                <div class='col-md-4'>Price:</div>
+                <!-- pipes to convert how the data is displayed for currency fields -->
+                <div class='col-md-8'>{{product.price|currency:'USD':'symbol'}}</div>
+              </div>
+              <div class='row'>
+                <div class='col-md-4'>Quantity:</div>
+                <!-- pipes to convert how the data is displayed for currency fields -->
+                <div class='col-md-8'>{{product.quantity}}</div>
+              </div>
+              <div class='row'>
+                <div class='col-md-4'>5 Star Rating:</div>
+                <!-- rating in square brackets because it passes rating from the parent component; to star, the child component -->
+                <div class='col-md-8'>
+                  <pm-star [rating]='product.starRating'>
+                  </pm-star>
+                </div>
+        </div>
+    </div>
+
+    <div class='col-md-8'>
+        <img class='center-block img-responsive'
+             [style.width.px]='200'
+             [style.margin.px]='2'
+             [src]='product.imageUrl'
+             [title]='product.productName'>
+      </div>
+    </div>
+
+    <div class='col-md-12'>
+        <!-- calls checkEnoughItems function in parent product detail component with notEnoughProducts Output in child basket component -->
+        <pm-basket  (notEnoughProducts)='checkEnoughItems($event)'></pm-basket>
+        <!-- button for addToBasket which is disabled if the notEnouhItems boolean is true -->
+        <button type="button" class='btn btn-info' style="width: 800px"
+                [disabled]="notEnoughItems"
+                style='width:80px'
+                (click)='addToBasket()'
+               >
+                Add to basket
+            </button>
+            
+       
+    </div>
+</div>
+  
+    </div>
+    <!-- call the onBack method when this button is clicked, to navigate back to the product list -->
+    <div class='card-footer'>
+        <button class='btn btn-outline-secondary'
+                style='width:80px'
+                (click)='onBack()'>
+        <i class='fa fa-chevron-left'></i>Back
+        </button>
+    </div>

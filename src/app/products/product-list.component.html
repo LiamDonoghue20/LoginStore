@@ -1,0 +1,67 @@
+<div class='card'>
+    <div class='card-header'>
+        {{pageTitle}}
+    </div>
+    <div class='row'>
+        <!-- ngModel to sync the text in the input and the back end variable listFilter -->
+        <div class='col-md-2'>Filter by:</div>
+        <div class='col-md-4'>
+            <input type='text'
+            [(ngModel)]='listFilter'/>
+        </div>
+    </div>
+    <div class='row'>
+        <div class='col-md-6'>
+            <h4>Filter by: {{listFilter}}</h4>
+        </div>
+    </div>
+    
+   
+    <!-- if there is products in the products array, display the table -->
+    <div class='table-responsive'>
+        <table class='table' *ngIf='products.length'>
+            <thead>
+                <tr>
+                    <th>
+                        <!-- toggleImage to toggle image boolean, depending on true or false display Hide or Show -->
+                        <button class='btn btn-primary'
+                        (click)='toggleImage()'>
+                        {{showImage? 'Hide' : 'Show'}} Image
+                    </button>
+                    </th>
+                    <th mat-header-cell>Product</th>
+                    <th>Code</th>
+                    <th>Available</th>
+                    <th>Price</th>
+                    <th>5 Star Rating</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- for each product in the filteredProducts array show info and display image -->
+                <tr *ngFor="let product of filteredProducts">
+                    <td>
+                        <img *ngIf='showImage'
+                        [src]='product.imageUrl'
+                        [title]='product.productName'
+                        [style.width.px]='imageWidth'
+                        [style.margin.px]='imageMargin'>
+                    </td>
+                    <td>
+                    <!-- Link the product name to the product detail component, access by passing the product Id to the router with /products -->
+                    <a [routerLink]="['/products', product.productId] ">
+                        {{product.productName}}
+                       </a>
+                    </td>
+                    <td>{{product.productCode | lowercase | convertToSpaces:'-'}}</td>
+                    <td>{{product.releaseDate}}</td>
+                    <td>{{product.price | currency:'GBP':'symbol':'1.2-2'}}</td>
+                    <td>
+                        <!-- pass the product rating to the child component of star to display the right amount of stars -->
+                        <pm-star [rating]='product.starRating'>
+                        </pm-star>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

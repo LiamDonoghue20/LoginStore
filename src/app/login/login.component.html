@@ -1,0 +1,40 @@
+﻿<div class="jumbotron">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 offset-sm-3">
+                <h2>Login</h2>
+                <!-- call the onSubmit method when the form is submitted -->
+                <!-- formGroup applys validation to the form via the loginForm variable which is set in the component class -->
+                <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <!-- validation on username field to check username is valid -->
+                        <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
+                        <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+                                <!-- alert if the username is invalid -->
+                            <div *ngIf="f.username.errors.required">Username is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+                    <!-- alert if the password is invalid -->
+                        <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                            <div *ngIf="f.password.errors.required">Password is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <!-- disable the Login button if the loading boolean is true -->
+                        <button [disabled]="loading" class="btn btn-primary">
+                            <!-- if the loading boolean is true then display a spinner -->
+                            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                            Login
+                        </button>
+                        <a routerLink="/register" class="btn btn-link">Register</a>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
